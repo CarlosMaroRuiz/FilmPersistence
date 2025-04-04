@@ -1,0 +1,104 @@
+/* Estilos para funcionalidades offline */
+.offline-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--netflix-red);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 2;
+    animation: fadeIn 0.3s ease;
+}
+
+.download-all-btn {
+    margin-left: auto;
+    background-color: var(--netflix-red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.download-all-btn:hover {
+    background-color: var(--netflix-red-hover);
+}
+
+.video-context-menu {
+    position: fixed;
+    background-color: var(--netflix-dark);
+    border: 1px solid var(--netflix-gray);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 1000;
+    padding: 8px 0;
+    animation: scaleIn 0.2s ease;
+}
+
+.menu-item {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--netflix-gray);
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--netflix-gray);
+    margin: 5px 0;
+}
+
+/* Indicador de espacio de almacenamiento */
+.storage-info {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 12px;
+    gap: 10px;
+}
+
+.storage-bar {
+    flex-grow: 1;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.storage-used {
+    height: 100%;
+    background-color: var(--netflix-red);
+    width: 0%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.storage-text {
+    white-space: nowrap;
+}

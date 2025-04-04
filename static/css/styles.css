@@ -1,0 +1,572 @@
+:root {
+    --netflix-red: #E50914;
+    --netflix-red-hover: #F40612;
+    --netflix-black: #141414;
+    --netflix-dark: #181818;
+    --netflix-gray: #222222;
+    --netflix-light-gray: #8c8c8c;
+    --netflix-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--netflix-black);
+    color: var(--netflix-white);
+    overflow-x: hidden;
+    line-height: 1.6;
+    padding-bottom: 50px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* HEADER */
+header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    padding: 15px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.5s ease;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--netflix-red);
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--netflix-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.logout-btn {
+    background-color: transparent;
+    color: var(--netflix-white);
+    border: none;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(229, 9, 20, 0.1);
+    color: var(--netflix-red);
+}
+
+/* CONNECTION STATUS */
+.connection-status {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 14px;
+    animation: slideIn 0.5s ease;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.online .status-indicator {
+    background-color: #4CAF50;
+    box-shadow: 0 0 10px #4CAF50;
+    animation: pulse 2s infinite;
+}
+
+.offline .status-indicator {
+    background-color: var(--netflix-red);
+    box-shadow: 0 0 10px var(--netflix-red);
+    animation: pulse 2s infinite;
+}
+
+/* VIDEO PLAYER */
+.player-section {
+    margin: 30px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    background-color: var(--netflix-dark);
+    transition: transform 0.3s ease;
+    position: relative;
+    animation: scaleIn 0.5s ease;
+}
+
+.video-title {
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-player-container {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: #000;
+}
+
+.video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--netflix-red);
+    animation: spin 1s linear infinite;
+}
+
+/* MESSAGES */
+.message-container {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideInRight 0.3s forwards;
+}
+
+.message i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.success {
+    background-color: rgba(76, 175, 80, 0.9);
+    color: white;
+}
+
+.error {
+    background-color: rgba(229, 9, 20, 0.9);
+    color: white;
+}
+
+.info {
+    background-color: rgba(33, 150, 243, 0.9);
+    color: white;
+}
+
+/* Estilos para funcionalidades offline */
+.offline-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--netflix-red);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 2;
+    animation: fadeIn 0.3s ease;
+}
+
+.download-all-btn {
+    margin-left: auto;
+    background-color: var(--netflix-red);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.download-all-btn:hover {
+    background-color: var(--netflix-red-hover);
+}
+
+.video-context-menu {
+    position: fixed;
+    background-color: var(--netflix-dark);
+    border: 1px solid var(--netflix-gray);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 1000;
+    padding: 8px 0;
+    animation: scaleIn 0.2s ease;
+}
+
+.menu-item {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--netflix-gray);
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--netflix-gray);
+    margin: 5px 0;
+}
+
+/* Indicador de espacio de almacenamiento */
+.storage-info {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    font-size: 12px;
+    gap: 10px;
+}
+
+.storage-bar {
+    flex-grow: 1;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.storage-used {
+    height: 100%;
+    background-color: var(--netflix-red);
+    width: 0%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.storage-text {
+    white-space: nowrap;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* NUEVO LAYOUT VERTICAL */
+/* Layout principal con dos columnas */
+.app-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 70px); /* Altura total menos el header */
+    margin-top: 10px;
+}
+
+/* Barra lateral con videos */
+.sidebar {
+    width: 350px;
+    min-width: 300px;
+    height: 100%;
+    background-color: var(--netflix-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-header {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-header .section-title {
+    margin: 0;
+    font-size: 18px;
+}
+
+.sidebar-header .download-all-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+/* Lista de videos */
+.video-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Scrollbar personalizado */
+.video-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.video-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.video-list::-webkit-scrollbar-thumb {
+    background: var(--netflix-red);
+    border-radius: 4px;
+}
+
+/* Cada elemento de video en la lista */
+.video-item {
+    display: flex;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.video-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.video-item .video-thumbnail {
+    width: 120px;
+    height: 70px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.video-item .video-info {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.video-item .video-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    /* Limitar a 2 líneas de texto */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-item .progress-container {
+    margin-top: auto;
+}
+
+.video-item .progress-bar {
+    height: 3px;
+}
+
+/* Para las miniaturas en la lista vertical */
+.video-item .video-thumbnail svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Indicador de video offline en lista vertical */
+.video-item .offline-badge {
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+}
+
+/* Contenido principal y reproductor */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-content .connection-status {
+    margin: 0 0 15px 0;
+}
+
+.main-content .player-section {
+    flex: 1;
+    margin: 0;
+    max-height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content .video-player-container {
+    flex: 1;
+    position: relative;
+    padding-top: 0;
+    height: 100%;
+}
+
+.main-content .video-player {
+    position: relative;
+    height: 100%;
+}
+
+/* Estilos para el video seleccionado actualmente */
+.video-item.active {
+    border: 2px solid var(--netflix-red);
+    background-color: rgba(229, 9, 20, 0.2);
+}
+
+/* Ajustes responsive */
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: 300px;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .main-content {
+        height: 500px;
+    }
+}

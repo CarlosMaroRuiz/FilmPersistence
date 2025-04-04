@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoFlix - Tu App de Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                <span>VideoFlix</span>
+            </div>
+            <div class="user-info">
+                <div class="user-profile">
+                    <div class="user-avatar">{{ username[0].upper() }}</div>
+                    <span class="user-name">{{ username }}</span>
+                </div>
+                <a href="{{ url_for('logout') }}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Salir</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Flash Messages Container -->
+        <div class="message-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="message {{ category }}">
+                            {% if category == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elif category == 'error' %}
+                                <i class="fas fa-exclamation-circle"></i>
+                            {% else %}
+                                <i class="fas fa-info-circle"></i>
+                            {% endif %}
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+        <div class="app-container">
+            <!-- Barra lateral con videos disponibles -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-film"></i>
+                        Videos Disponibles
+                    </h2>
+                    <button class="download-all-btn">
+                        <i class="fas fa-download"></i> Descargar offline
+                    </button>
+                </div>
+                
+                <div class="video-list" id="video-list">
+                    {% if videos %}
+                        {% for video in videos %}
+                        <div class="video-item" data-src="/videos/{{ video }}" data-name="{{ video }}">
+                            <div class="video-thumbnail">
+                                <!-- Las miniaturas SVG serán inyectadas dinámicamente por JavaScript -->
+                            </div>
+                            <div class="video-info">
+                                <div class="video-name">{{ video }}</div>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: {{ history.get(video, 0) * 100 }}%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-videos-message">
+                            <i class="fas fa-video-slash"></i>
+                            <p>No hay videos disponibles</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Área principal con el reproductor -->
+            <div class="main-content">
+                <!-- Connection Status -->
+                <div class="connection-status online" id="connection-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">En línea</span>
+                </div>
+                
+                <!-- Video Player Section -->
+                <div class="player-section" id="player-section">
+                    <div class="video-title" id="current-video-title">Selecciona un video para reproducir</div>
+                    <div class="video-player-container">
+                        <video id="video-player" class="video-player" controls></video>
+                        <div class="loading-overlay" id="loading-overlay">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/storage.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/thumbnails.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
