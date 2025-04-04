@@ -1,0 +1,398 @@
+/* Mejoras visuales premium para VideoFlix */
+
+/* Paleta de colores ampliada */
+:root {
+    --netflix-red: #E50914;
+    --netflix-red-hover: #F40612;
+    --netflix-black: #141414;
+    --netflix-dark: #181818;
+    --netflix-gray: #222222;
+    --netflix-light-gray: #8c8c8c;
+    --netflix-white: #FFFFFF;
+    
+    /* Nuevos colores */
+    --premium-gradient-start: #1a1a1a;
+    --premium-gradient-end: #0a0a0a;
+    --accent-purple: #6d28d9;
+    --accent-blue: #2563eb;
+    --accent-green: #059669;
+    --premium-overlay: rgba(10, 10, 10, 0.75);
+    --premium-card: #1f1f1f;
+    --glass-effect: rgba(255, 255, 255, 0.03);
+}
+
+/* Mejoras generales */
+body {
+    background: linear-gradient(135deg, var(--premium-gradient-start) 0%, var(--premium-gradient-end) 100%);
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* Header mejorado */
+header {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 28px;
+    position: relative;
+}
+
+.logo span::after {
+    content: "Premium";
+    position: absolute;
+    top: -10px;
+    right: -60px;
+    font-size: 10px;
+    background: linear-gradient(90deg, var(--netflix-red) 0%, var(--accent-purple) 100%);
+    padding: 3px 8px;
+    border-radius: 10px;
+    color: white;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    position: relative;
+    margin: 0 20px;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-bar input {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px 15px;
+    padding-left: 40px;
+    color: var(--netflix-white);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--netflix-red);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.2);
+}
+
+.search-bar i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--netflix-light-gray);
+    pointer-events: none;
+}
+
+/* Tarjetas premium */
+.video-item {
+    background: linear-gradient(145deg, var(--premium-card) 0%, var(--netflix-dark) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: all 0.5s ease;
+    transform: translateX(-100%);
+}
+
+.video-item:hover::before {
+    transform: translateX(100%);
+}
+
+.video-item.active {
+    border: 1px solid var(--netflix-red);
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
+    animation: pulse-border 2s infinite;
+}
+
+/* Progreso de reproducción mejorado */
+.progress-bar {
+    height: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+    background: linear-gradient(90deg, var(--netflix-red) 0%, var(--accent-purple) 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+}
+
+/* Sidebar premium */
+.sidebar {
+    background: linear-gradient(180deg, var(--netflix-dark) 0%, rgba(20, 20, 20, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.sidebar-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.download-all-btn {
+    background: linear-gradient(135deg, var(--netflix-red) 0%, var(--accent-purple) 70%);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.download-all-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.download-all-btn:hover::after {
+    opacity: 1;
+}
+
+.no-videos-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--netflix-light-gray);
+}
+
+.no-videos-message i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+/* Reproductor premium */
+.player-section {
+    background: linear-gradient(180deg, var(--premium-card) 0%, var(--netflix-dark) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.video-title {
+    font-weight: 600;
+    padding: 20px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.video-title::before {
+    content: '▶';
+    margin-right: 10px;
+    color: var(--netflix-red);
+    font-size: 12px;
+}
+
+/* Modo cine */
+.cinema-mode .app-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    background-color: black;
+    padding: 20px;
+}
+
+.cinema-mode .sidebar {
+    display: none;
+}
+
+.cinema-mode .main-content {
+    height: 100%;
+}
+
+.cinema-mode .player-section {
+    height: calc(100% - 50px);
+}
+
+.cinema-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.cinema-toggle:hover {
+    background: rgba(229, 9, 20, 0.7);
+    transform: scale(1.1);
+}
+
+/* Categorías */
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+    flex-wrap: wrap;
+}
+
+.category {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category:hover {
+    background: rgba(229, 9, 20, 0.2);
+    border-color: var(--netflix-red);
+}
+
+.category.active {
+    background: var(--netflix-red);
+    border-color: var(--netflix-red);
+}
+
+/* Estadísticas de almacenamiento mejoradas */
+.storage-info {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(20, 20, 20, 0.3) 100%);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.storage-bar {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.storage-used {
+    background: linear-gradient(90deg, #4CAF50 0%, #FFC107 50%, #F44336 100%);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.storage-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--netflix-light-gray);
+}
+
+/* Tooltips elegantes */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px);
+    background: var(--premium-overlay);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* Animaciones adicionales */
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(229, 9, 20, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Skeleton loader para miniaturas */
+.thumbnail-skeleton {
+    background: linear-gradient(90deg, var(--netflix-dark) 0%, var(--premium-card) 20%, var(--netflix-dark) 40%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Media queries mejorados */
+@media (max-width: 1200px) {
+    .app-container {
+        height: calc(100vh - 120px);
+    }
+}
+
+@media (max-width: 900px) {
+    .search-bar {
+        max-width: 200px;
+    }
+    
+    .categories {
+        overflow-x: auto;
+        padding-bottom: 10px;
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        display: none;
+    }
+}
